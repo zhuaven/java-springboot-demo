@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhu.demo.dao.UserOrderMapper">
+
+    <cache type="com.zhu.demo.config.MybatisRedisCache"/>
+
+    <resultMap id="BaseResultMap" type="com.zhu.demo.entity.UserOrder">
+        <result column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="number" property="number"/>
+        <result column="money" property="money"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_no, user_id, product_id, number, money, status, remark, create_by, create_date
+    </sql>
+
+    <select id="list" resultType="com.zhu.demo.dto.OrderDto">
+        SELECT o.*, u.* FROM `user_order` o JOIN `user` u ON u.id = o.user_id ${ew.customSqlSegment}
+    </select>
+
+</mapper>

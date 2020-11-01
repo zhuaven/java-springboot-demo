@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhu.demo.dao.UserMapper">
+
+    <cache type="com.zhu.demo.config.MybatisRedisCache"/>
+
+    <resultMap id="BaseResultMap" type="com.zhu.demo.entity.User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_by" property="createBy"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, password, email, status, create_date, create_by
+    </sql>
+
+    <select id="list" parameterType="com.zhu.demo.dto.UserDto" resultType="com.zhu.demo.entity.User">
+        SELECT * FROM user WHERE 1 = 1
+        <if test="name != null">
+            AND name = "#{name}"
+        </if>
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="login" parameterType="com.zhu.demo.dto.UserDto" resultType="com.zhu.demo.entity.User">
+        SELECT * FROM user WHERE name = #{name} AND #{password}
+    </select>
+
+</mapper>

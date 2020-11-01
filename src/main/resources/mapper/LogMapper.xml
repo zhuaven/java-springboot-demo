@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhu.demo.dao.LogMapper">
+
+    <cache type="com.zhu.demo.config.MybatisRedisCache"/>
+
+    <resultMap id="BaseResultMap" type="com.zhu.demo.entity.Log">
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="title" property="title"/>
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="remark" property="remark"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_by" property="createBy"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, type, title, method, params, remark, create_date, create_by
+    </sql>
+
+    <select id="list" resultType="com.zhu.demo.entity.Log">
+        SELECT * FROM log WHERE 1 = 1
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>
